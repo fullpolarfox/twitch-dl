@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import print_function
 import sys
 import re
 
@@ -45,7 +45,6 @@ def print_out(*args, **kwargs):
     print(*args, **kwargs)
 
 
-def print_err(*args, **kwargs):
+def print_err(args, **kwargs):
     args = ["<red>{}</red>".format(a) for a in args]
     args = [colorize(a) if USE_ANSI_COLOR else strip_tags(a) for a in args]
-    print(*args, file=sys.stderr, **kwargs)

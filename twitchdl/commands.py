@@ -131,7 +131,7 @@ def _join_vods(directory, paths, target):
         for path in paths:
             f.write('file {}\n'.format(os.path.basename(path)))
 
-    result = subprocess.run([
+    result = subprocess.check_call([
         "ffmpeg",
         "-f", "concat",
         "-i", input_path,
@@ -141,7 +141,6 @@ def _join_vods(directory, paths, target):
         "-loglevel", "warning",
     ])
 
-    result.check_returncode()
 
 
 def _video_target_filename(video, format):
@@ -170,7 +169,7 @@ def parse_video_id(video_id):
     raise ConsoleError("Invalid video ID given, expected integer ID or Twitch URL")
 
 
-def download(video_id, max_workers, format='mkv', start=None, end=None, **kwargs):
+def download(video_id, max_workers, format='avi', start=None, end=None, **kwargs):
     video_id = parse_video_id(video_id)
 
     if start and end and end <= start:
@@ -197,7 +196,7 @@ def download(video_id, max_workers, format='mkv', start=None, end=None, **kwargs
 
     # Create a temp dir to store downloads if it doesn't exist
     directory = '{}/twitch-dl/{}/{}'.format(tempfile.gettempdir(), video_id, quality)
-    pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(directory).mkdir(parents=True)
     print_out("Download dir: {}".format(directory))
 
     print_out("Downloading {} VODs using {} workers...".format(len(filenames), max_workers))

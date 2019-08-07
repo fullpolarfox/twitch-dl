@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-
+from __future__ import print_function
 from argparse import ArgumentParser, ArgumentTypeError
 from collections import namedtuple
 
 from twitchdl.exceptions import ConsoleError
 from twitchdl.output import print_err
-from . import commands, __version__
+from . import commands
 
 
 Command = namedtuple("Command", ["name", "description", "arguments"])
@@ -50,8 +50,7 @@ COMMANDS = [
                 "type": str,
             }),
             (["-w", "--max_workers"], {
-                "help": "maximal number of threads for downloading vods "
-                        "concurrently (default 5)",
+                "help": "maximal number of threads for downloading vods concurrently (default 5)",
                 "type": int,
                 "default": 20,
             }),
@@ -64,12 +63,6 @@ COMMANDS = [
                 "help": "Download video up to this time (hh:mm or hh:mm:ss)",
                 "type": time,
                 "default": None,
-            }),
-            (["-f", "--format"], {
-                "help": "Video format to convert into, passed to ffmpeg as the "
-                        "target file extension (default: mkv)",
-                "type": str,
-                "default": "mkv",
             }),
         ],
     ),
@@ -93,8 +86,6 @@ def get_parser():
     description = "A script for downloading videos from Twitch"
 
     parser = ArgumentParser(prog='twitch-dl', description=description, epilog=CLIENT_WEBSITE)
-    parser.add_argument("--version", help="show version number", action='store_true')
-
     subparsers = parser.add_subparsers(title="commands")
 
     for command in COMMANDS:
@@ -112,10 +103,6 @@ def get_parser():
 def main():
     parser = get_parser()
     args = parser.parse_args()
-
-    if args.version:
-        print("twitch-dl v{}".format(__version__))
-        return
 
     if "func" not in args:
         parser.print_help()
