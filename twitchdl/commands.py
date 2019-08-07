@@ -151,7 +151,7 @@ def _video_target_filename(video, format):
         date,
         video['_id'][1:],
         video['channel']['name'],
-        slugify(video['title']),
+        slugify(video['title'].encode('utf-8')),
     ])
 
     return name + "." + format
