@@ -1,3 +1,4 @@
+
 import os
 import pathlib
 import re
@@ -151,7 +152,7 @@ def _video_target_filename(video, format):
         date,
         video['_id'][1:],
         video['channel']['name'],
-        video['title'].encode('utf-8'),
+        video['title'],
     ])
 
     return name + "." + format
@@ -210,4 +211,4 @@ def download(video_id, max_workers, format='avi', start=None, end=None, **kwargs
     for path in paths:
         os.unlink(path)
 
-    print_out("\nDownloaded: {}".format(target))
+    print_out("\nDownloaded: {}".format(target.encode('utf-8')))
