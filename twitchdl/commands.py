@@ -66,7 +66,7 @@ def _print_video(video):
     name = video['channel']['display_name']
 
     print_out("\n<bold>{}</bold>".format(video['_id'][1:]))
-    print_out("<green>{}</green>".format(video["title"]))
+    print_out("<green>{}</green>".format(video["title"].encode('utf-8')))
     print_out("<cyan>{}</cyan> playing <cyan>{}</cyan>".format(name, video['game']))
     print_out("Published <cyan>{}</cyan>  Length: <cyan>{}</cyan> ".format(published_at, length))
 
