@@ -152,7 +152,7 @@ def _video_target_filename(video, format):
         date,
         video['_id'][1:],
         video['channel']['name'],
-        video['title'],
+        video['title'].replace(" ", "_").replace("|", "-"),
     ])
 
     return name + "." + format
