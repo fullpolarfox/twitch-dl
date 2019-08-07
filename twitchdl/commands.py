@@ -179,7 +179,7 @@ def download(video_id, max_workers, format='avi', start=None, end=None, **kwargs
     video = twitch.get_video(video_id)
 
     print_out("Found: <blue>{}</blue> by <yellow>{}</yellow>".format(
-        video['title'], video['channel']['display_name']))
+        video['title'].encode('utf-8'), video['channel']['display_name']))
 
     print_out("Fetching access token...")
     access_token = twitch.get_access_token(video_id)
